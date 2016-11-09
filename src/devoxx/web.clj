@@ -1,6 +1,7 @@
 (ns devoxx.web
-  (:require [compojure.core :refer [defroutes GET]]
-            [devoxx.domain :as domain]))
+  (:require [compojure.core :refer [defroutes GET POST]]
+            [devoxx.domain :as domain]
+            [ring.util.response :refer [redirect]]))
 
 (defn index [todos]
   {:body (str
@@ -20,6 +21,10 @@
                              "</a>"
                            "</li>") todos))
                "</ul>"
+               "<form method=\"post\" action=\"/\">"
+                 "<input type=\"text\" name=\"text\"/>"
+                 "<input type=\"submit\" value=\"Save\"/>"
+               "</form>"
              "</body>"
            "</html>")})
 
@@ -37,9 +42,15 @@
              "</body>"
            "</html>")})
 
+(defn add [todo]
+  (redirect (str "/" (:id todo))))
+
 (defroutes routes
   (GET "/" []
        (index (domain/get-todos)))
   (GET "/:id" [id]
        (when-let [todo (domain/get-todo (Integer/parseInt id))]
-         (show todo))))
+         (show todo)))
+  (POST "/" request
+        (when-let [text (get-in request [:params :text])]
+          (add (domain/add-todo! {:text text})))))

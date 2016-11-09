@@ -15,4 +15,5 @@
 (defn add-todo! [item]
   (let [id (next-id)
         item-with-id (assoc item :id id)]
-    (swap! todos conj item-with-id)))
+    (swap! todos conj item-with-id)
+    item-with-id))

@@ -11,4 +11,5 @@
                  [hiccup "1.0.5"]
                  [org.clojure/clojure "1.8.0"]
                  [ring/ring-jetty-adapter "1.5.0"]]
-  :main devoxx.app)
+  :main devoxx.app
+  :aot [devoxx.app])

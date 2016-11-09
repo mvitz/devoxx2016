@@ -6,10 +6,19 @@ This appliation supported my talk at [Devoxx](https://devoxx.be) 2016.
 
 The slides and recored video can be found [here](https://www.innoq.com/en/talks/2016/11/clojure-web-application-101/).
 
+
 ## Run
 
 * Grab [Leiningen](http://leiningen.org/#install) and install according to its instructions
 * Use `lein run` to start the application, then access it at [http://localhost:3000](http://localhost:3000)
+
+
+## Libraries
+
+* [Ring](https://github.com/ring-clojure/ring) for HTTP handling
+* [Compojure](https://github.com/weavejester/compojure) for URI routing
+* [Hiccup](https://github.com/weavejester/hiccup) for HTML templating
+
 
 ## License
 

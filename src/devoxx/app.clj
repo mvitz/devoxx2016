@@ -1,10 +1,10 @@
 (ns devoxx.app
-  (:require [devoxx.domain :as domain]))
+  (:require [devoxx.domain :as domain]
+            [devoxx.web :as web]
+            [ring.adapter.jetty :refer [run-jetty]]))
 
 (defn -main [& args]
   (domain/add-todo! {:text "Go to Devoxx"})
   (domain/add-todo! {:text "Upload example"})
 
-  (println (domain/get-todos))
-  (println (domain/get-todo 1))
-  (println (domain/get-todo 3)))
+  (run-jetty web/index {:port 3000}))

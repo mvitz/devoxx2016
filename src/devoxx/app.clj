@@ -7,4 +7,4 @@
   (domain/add-todo! {:text "Go to Devoxx"})
   (domain/add-todo! {:text "Upload example"})
 
-  (run-jetty web/index {:port 3000}))
+  (run-jetty web/routes {:port 3000}))

@@ -1,4 +1,5 @@
-(ns devoxx.app)
+(ns devoxx.app
+  (:require [devoxx.domain :as domain]))
 
 (defn -main [& args]
-  (println "Hello, world!"))
+  (println (domain/get-todos)))

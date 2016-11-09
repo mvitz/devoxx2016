@@ -6,6 +6,7 @@
             :comments "A business-friendly OSS license"}
   :min-lein-version "2.0.0"
   :dependencies [[compojure "1.5.1"]
+                 [hiccup "1.0.5"]
                  [org.clojure/clojure "1.8.0"]
                  [ring/ring-jetty-adapter "1.5.0"]]
   :main devoxx.app)

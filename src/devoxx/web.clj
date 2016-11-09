@@ -1,46 +1,31 @@
 (ns devoxx.web
   (:require [compojure.core :refer [defroutes GET POST]]
             [devoxx.domain :as domain]
+            [hiccup.element :refer (link-to)]
+            [hiccup.form :as f]
+            [hiccup.page :refer [html5]]
             [ring.util.response :refer [redirect]]))
 
 (defn index [todos]
-  {:body (str
-           "<!DOCTYPE html>"
-           "<html>"
-             "<head>"
-               "<title>Devoxx TODOs</title>"
-             "</head>"
-             "<body>"
-               "<h1>Devoxx TODOs</h1>"
-               "<ul>"
-                 (clojure.string/join
-                   (map #(str
-                           "<li>"
-                             "<a href=\"/" (:id %) "\">"
-                               (:text %)
-                             "</a>"
-                           "</li>") todos))
-               "</ul>"
-               "<form method=\"post\" action=\"/\">"
-                 "<input type=\"text\" name=\"text\"/>"
-                 "<input type=\"submit\" value=\"Save\"/>"
-               "</form>"
-             "</body>"
-           "</html>")})
+  (html5
+    [:head
+     [:title "Devoxx TODOs"]]
+    [:body
+     [:h1 "Devoxx TODOs"]
+     [:ul
+      (map #(vector :li (link-to (str "/" (:id %)) (:text %))) todos)]
+     (f/form-to [:post "/"]
+                (f/text-field "text")
+                (f/submit-button "Add"))]))
 
 (defn show [todo]
-  {:body (str
-           "<!DOCTYPE html>"
-           "<html>"
-             "<head>"
-               "<title>Devoxx TODO: " (:text todo) "</title>"
-             "</head>"
-             "<body>"
-               "<h1>Devoxx TODO</h1>"
-               "<h2>" (:text todo) "</h2>"
-               "<a href=\"/\">Back</a>"
-             "</body>"
-           "</html>")})
+  (html5
+    [:head
+     [:title (str "Devoxx TODO: " (:text todo))]]
+    [:body
+     [:h1 "Devoxx TODO"]
+     [:h2 (:text todo)]
+     (link-to "/" "Back")]))
 
 (defn add [todo]
   (redirect (str "/" (:id todo))))

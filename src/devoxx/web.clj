@@ -1,5 +1,6 @@
 (ns devoxx.web
-  (:require [compojure.core :refer [defroutes GET POST]]
+  (:require [compojure.coercions :refer [as-int]]
+            [compojure.core :refer [defroutes GET POST]]
             [devoxx.domain :as domain]
             [hiccup.element :refer (link-to)]
             [hiccup.form :as f]
@@ -33,8 +34,8 @@
 (defroutes routes
   (GET "/" []
        (index (domain/get-todos)))
-  (GET "/:id" [id]
-       (when-let [todo (domain/get-todo (Integer/parseInt id))]
+  (GET "/:id" [id :<< as-int]
+       (when-let [todo (domain/get-todo id)]
          (show todo)))
   (POST "/" request
         (when-let [text (get-in request [:params :text])]

@@ -9,6 +9,9 @@
 (defn get-todos []
   @todos)
 
+(defn get-todo [id]
+  (first (filter #(= id (:id %)) @todos)))
+
 (defn add-todo! [item]
   (let [id (next-id)
         item-with-id (assoc item :id id)]
